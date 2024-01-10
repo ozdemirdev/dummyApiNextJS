@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios'
 import { useRouter } from 'next/router';
+const apiKey = process.env.NEXT_PUBLIC__DUMMY_API_KEY
+const headers = { 'Content-type': 'application/json', 'app-id': apiKey }
 
 interface User {
     title: string;
@@ -25,14 +27,14 @@ export default function CreateUser() {
     const [users, setUsers] = useState([]);
 
     function getUsers() {
-        axios.get("https://dummyapi.io/data/v1/user", { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then(res => {
+        axios.get("https://dummyapi.io/data/v1/user", { headers: headers }).then(res => {
             console.log(res.data.data)
             setUsers(res.data.data)
         })
     }
 
     function getUserDetail() {
-        axios.get("https://dummyapi.io/data/v1/user/" + id, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then(res => {
+        axios.get("https://dummyapi.io/data/v1/user/" + id, { headers: headers }).then(res => {
             console.log(res.data)
             setFormData({
                 title: res.data.title,
@@ -45,7 +47,7 @@ export default function CreateUser() {
     }
 
     function updateUser() {
-        axios.put("https://dummyapi.io/data/v1/user/" + id, formData, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then((response) => {
+        axios.put("https://dummyapi.io/data/v1/user/" + id, formData, { headers: headers }).then((response) => {
             console.log('Updated:', response.data);
             router.push('/users')
         })
@@ -55,7 +57,7 @@ export default function CreateUser() {
     }
 
     function createUser() {
-        axios.post("https://dummyapi.io/data/v1/user/create", {...formData}, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then((response) => {
+        axios.post("https://dummyapi.io/data/v1/user/create", {...formData}, { headers: headers }).then((response) => {
             console.log('Created:', response.data);
             router.push('/users')
         })

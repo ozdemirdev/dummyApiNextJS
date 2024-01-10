@@ -1,13 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiKey = process.env.REACT_APP_DUMMY_API_KEY
+const headers = { 'Content-type': 'application/json', 'app-id': apiKey }
+
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    const response: any = await axios.get("https://dummyapi.io/data/v1/user", { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } })
+    const response: any = await axios.get("https://dummyapi.io/data/v1/user", { headers: headers })
     return response.data.data;
 });
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (userId: any) => {
-    const response = await axios.delete(`https://dummyapi.io/data/v1/user/${userId}`, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } });
+    const response = await axios.delete(`https://dummyapi.io/data/v1/user/${userId}`, { headers: headers });
     return userId;
 });
 

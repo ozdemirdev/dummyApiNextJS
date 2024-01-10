@@ -1,18 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiKey = process.env.NEXT_PUBLIC__DUMMY_API_KEY
+const headers = { 'Content-type': 'application/json', 'app-id': apiKey }
+
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    const response: any = await axios.get("https://dummyapi.io/data/v1/post", { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } })
+    const response: any = await axios.get("https://dummyapi.io/data/v1/post", { headers: headers })
     return response.data.data;
 });
 
 export const deletePost = createAsyncThunk('posts/deletePost', async (postId: any) => {
-    const response = await axios.delete(`https://dummyapi.io/data/v1/post/${postId}`, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } });
+    const response = await axios.delete(`https://dummyapi.io/data/v1/post/${postId}`, { headers: headers });
     return postId;
 });
 
 export const createPost = createAsyncThunk('posts/createPost', async (formData: any) => {
-    const response: any = await axios.post("https://dummyapi.io/data/v1/post/create", formData, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } })
+    const response: any = await axios.post("https://dummyapi.io/data/v1/post/create", formData, { headers: headers })
     return response.data;
 });
 
@@ -31,7 +34,7 @@ export const filterPosts = createAsyncThunk('posts/filterPosts', async ({type, k
         default:
             return
     }
-    const response = await axios.get(queryPath, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } })
+    const response = await axios.get(queryPath, { headers: headers })
     if (type != 3) {
         return response.data.data
     }

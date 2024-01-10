@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '@/store/slices/userSlice';
 import { createPost } from '@/store/slices/postsSlice';
 
+const apiKey = process.env.NEXT_PUBLIC__DUMMY_API_KEY
+const headers = { 'Content-type': 'application/json', 'app-id': apiKey }
+
 interface Post {
     text: string;
     image: string;
@@ -29,7 +32,7 @@ export default function CreatePost() {
     const { id } = router.query
 
     function getPostDetail() {
-        axios.get("https://dummyapi.io/data/v1/post/" + id, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then(res => {
+        axios.get("https://dummyapi.io/data/v1/post/" + id, { headers: headers }).then(res => {
             setFormData({
                 text: res.data.text,
                 image: res.data.image,
@@ -41,7 +44,7 @@ export default function CreatePost() {
     }
 
     function updatePost() {
-        axios.put("https://dummyapi.io/data/v1/post/" + id, formData, { headers: { 'Content-type': 'application/json', 'app-id': '65989f4a3d6b2006317214ff' } }).then((response) => {
+        axios.put("https://dummyapi.io/data/v1/post/" + id, formData, { headers: headers }).then((response) => {
             console.log('Created:', response.data);
             router.push('/posts')
         })
