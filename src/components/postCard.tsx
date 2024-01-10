@@ -25,8 +25,8 @@ const PostCard = (props: any) => {
                     {props.cardData.text}
                 </Card.Text>
                 <div className='d-flex flex-row gap-2'>
-                    {props.cardData.tags.map((tag: string) => (
-                        <Badge bg="secondary">{tag}</Badge>
+                    {props.cardData.tags.map((tag: string, i: any) => (
+                        <Badge key={i} bg="secondary">{tag}</Badge>
                     ))}
                 </div>
             </Card.Body>
