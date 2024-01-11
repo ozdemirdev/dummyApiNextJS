@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiKey = process.env.REACT_APP_DUMMY_API_KEY
+const apiKey = process.env.NEXT_PUBLIC__DUMMY_API_KEY
 const headers = { 'Content-type': 'application/json', 'app-id': apiKey }
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
